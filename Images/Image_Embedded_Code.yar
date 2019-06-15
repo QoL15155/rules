@@ -21,6 +21,20 @@ private rule is_image
 		($bmp at 0)) 
 }
 
+
+// TODO: fix bug. doesn't really work
+rule is_jpeg_exif
+{
+	meta:
+		description = "JPEG Image with EXIF metadata"
+		author = "QoL15155"
+	strings:
+        $jfif = { ff d8 ff e? }
+		$exif = { ff e1 ?? ?? 45 78 69 66 00 00 49 49 2A 00 08 00 00 00 }
+	condition:
+		($jfif at 0) and $exif
+}
+
 rule php_in_image
 {
     meta:
