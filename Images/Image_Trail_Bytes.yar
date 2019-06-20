@@ -9,10 +9,11 @@
 		description = "Find JPG files with trailing bytes"
 		comment = "Checks last bytes are { ff d9 }"
 	strings:
-        $header = { ff d8 ff e? 00 10 4a 46 49 46 }
+        $header = { ff d8 ff e? 00 }
 		$footer = { ff d9 }
 	condition:
-		($header at 0) and ((#footer != 1) or not ($footer at filesize - 2))
+		($header at 0) and 
+		((#footer != 1) or (uint16(uint16(filesize-2))) != 0xffd9)
 }
 
 rule gif_trailing_bytes
