@@ -4,3 +4,4 @@ On 09-06-2019
 */
 include "./Images/Image_Embedded_Code.yar"
 include "./Images/Image_Trail_Bytes.yar"
+include "./Images/JPEG_Analyze.yar"

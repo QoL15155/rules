@@ -10,7 +10,7 @@ private rule is_image
 		author = "QoL15155"
     strings:
         $gif = /^GIF8[79]a/
-        $jfif = { ff d8 ff e? 00 10 4a 46 49 46 }
+        $jfif = { ff d8 ff e? 00 }
         $png = { 89 50 4e 47 0d 0a 1a 0a }
 		$bmp = "BM"
 
@@ -22,7 +22,7 @@ private rule is_image
 }
 
 
-rule php_in_image
+rule php_in_image : JPEG
 {
     meta:
         author      = "Vlad https://github.com/vlad-s"
@@ -35,7 +35,7 @@ rule php_in_image
 }
 
 
-rule html_javascript_in_image
+rule html_javascript_in_image : JPEG
 {
 	meta:
 		author = "QoL15155"
@@ -49,7 +49,7 @@ rule html_javascript_in_image
 		is_image and ($js_tag or $html_tag or $script_tag)
 }
 
-rule autorun_in_image
+rule autorun_in_image : JPEG
 {
 	meta:
 		author = "QoL15155"

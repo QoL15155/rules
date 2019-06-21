@@ -442,3 +442,6 @@ include "./malware/TOOLKIT_Wineggdrop.yar"
 include "./malware/TOOLKIT_exe2hex_payload.yar"
 include "./Images/Image_Embedded_Code.yar"
 include "./Images/Image_Trail_Bytes.yar"
+include "./Images/JPEG_Analyze.yar"  // TODO: remove
+
+

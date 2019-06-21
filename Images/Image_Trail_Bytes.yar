@@ -3,30 +3,29 @@
  * If there are any bytes after image ends
  */
 
- rule jpg_trailing_bytes
+rule jpg_trailing_bytes : JPEG
  {
 	meta:
 		description = "Find JPG files with trailing bytes"
 		comment = "Checks last bytes are { ff d9 }"
 	strings:
         $header = { ff d8 ff e? 00 }
-		$footer = { ff d9 }
 	condition:
 		($header at 0) and 
-		((#footer != 1) or (uint16(uint16(filesize-2))) != 0xffd9)
+		(uint16be(filesize - 2) != 0xffd9)  // Footer: 0xffd9
 }
+
 
 rule gif_trailing_bytes
 {
 	meta:
 		description = "Find GIF files with traling bytes"
 		comment = "Checks the last bytes are { 3b }"
-		note = "bug, only checks the last byte. Doesn't check the first occurence"
 	strings:
         $header = /^GIF8[79]a/
-		$footer = { 3b }
 	condition:
-		($header at 0) and not ($footer at filesize -1)
+		($header at 0) and 
+		(uint8(filesize - 1) != 0x3b)  // Footer : 0x3b
 }
 
 
